@@ -2,7 +2,14 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-import { Body, Controller, Get, Post, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 
@@ -12,6 +19,10 @@ export class UsersController {
   @Get()
   findAll() {
     return this.usersService.findAll();
+  }
+  @Get(':username')
+  findOne(@Param('username') username: string) {
+    return this.usersService.findOne(username);
   }
   @Post()
   create(@Body(ValidationPipe) createUser: CreateUserDto) {
